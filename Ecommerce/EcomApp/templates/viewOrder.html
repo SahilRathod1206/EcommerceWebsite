@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title%}
+    View Order Details
+{% endblock %}
+{% block body%}
+<div class="row">
+<div class="col-md-9 mt-2">
+    {% if user.is_authenticated %}
+    <h5 class="bg-primary text-white p-2">Customer Details</h5>
+        <p><b>Name:</b>  {{user.username}}
+        <p><b>Phone No:</b> 12345
+        <p><b>Email ID:</b> {{user.email}}
+    {% endif %}
+    <h5 class="bg-primary text-white p-2">Cart Details</h5>
+    {% for x in cart_items %}
+    <div class="row">
+        <div class="col-md-4 mt-2">
+            <img src="{{x.product.image.url}}" width="100%" style="height: 300px;">
+        </div>
+        <div class="col-md-8">
+            <p><b>Product Name:</b>&nbsp;&nbsp;{{x.product.name}}</p>
+            <p><b>Price:</b>&nbsp;&nbsp;{{x.product.price}}</p>
+            <p><b>Quantity:</b>&nbsp;&nbsp;{{x.quantity}}</p>
+            <p><b>Product Details:</b>&nbsp;&nbsp;{{x.product.desc}}</p>
+        </div>
+    </div>
+    {% empty %}
+    <div class="row">
+        <div class="col">
+            Your Cart is Empty. <br>
+            Explore Shop <br>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="col-md-3 mt-2">
+    <h5 class="bg-primary text-white p-2">Total Amount</h5>
+    <p><b>Total Items:</b>&nbsp;&nbsp;{{items}}</p>
+    <p><b>Total Amount:</b>&nbsp;&nbsp;Rs.{{total}}</p>
+    <a href="/makePayment"><button class="btn btn-primary">Make Payment</button></a>
+</div>
+</div>
+{% endblock %}
